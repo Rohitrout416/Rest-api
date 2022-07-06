@@ -10,13 +10,13 @@ app.use(bodyParser.json())
 
 app.use('/api', Userrouter)
 
-app.get('/',(req, res)=>{
-    res.json({
-        "name":"Rohit",
-        "age": "21"
-    })
-}
-)
+// app.get('/',(req, res)=>{
+//     res.json({
+//         "name":"Rohit",
+//         "age": "21"
+//     })
+// }
+// )
 
 app.listen(port, ()=>{
     console.log('server is running on port 3000');

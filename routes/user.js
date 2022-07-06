@@ -1,72 +1,16 @@
-import express, {  Router } from "express";
-import {v4 as uuidV4} from 'uuid'
+import express from "express";
+import { display_user, get_user, add_user, delete_user, update_user } from "../controllers/users.js";
 
-const router = Router();
+const router = express.Router();
 
-let users = [
-        {
-            "name": "john",
-            "age": "21",
-            id: uuidV4()
-        },
+router.get('/users', display_user);
 
-        {
-            "name": "Rohit",
-            "age": "21",
-            id: uuidV4()
-        },
+router.get('/users/:id', get_user);
 
-        {
-            "name": "Dhruba",
-            "age": "51",
-            id: uuidV4()
-        }
-]
+router.post('/users', add_user);
 
-router.get('/users', (req, res)=>{
-    res.json(users);
-})
+router.delete('/users/:id', delete_user);
 
-router.get('/users/:id', (req, res)=>{
-    const userId = req.params.id;
-
-    const user = users.find(user => user.id === userId)
-
-    res.json(user)
-})
-
-router.post('/users', (req, res)=>{
-    const {name: name, age: age} = req.body;
-    users.push({
-        name,
-        age,
-        id: uuidV4()
-    })
-
-    res.json(users)
-})
-
-router.delete('/users/:id', (req, res)=>{
-    const userId = req.params.id;
-
-    users = users.filter(user => user.id !== userId);
-    res.json(users);
-})
-
-router.put('/users/:id', (req, res)=>{
-    const userId = req.params.id;
-
-    const user = users.map((user)=>{
-        if (user.id == userId) {
-            return{
-                name,
-                age,
-                id: userId
-            }
-        }
-        return user;
-    })
-    res.json(users);
-})
+router.put('/users/:id', update_user);
 
 export default router;
