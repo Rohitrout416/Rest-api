@@ -1,12 +1,11 @@
 import express from "express";
-import bodyParser from "body-parser";
 import Userrouter from './routes/user.js'
 
 const port = 3000;
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(express.json())
 
 app.use('/api', Userrouter)
 
