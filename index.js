@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express from "express";
 import Userrouter from './routes/user.js'
+import mongoose from 'mongoose';
 
 const port = 3000;
 
@@ -19,6 +20,13 @@ app.get('/',(req, res)=>{
 }
 )
 
-app.listen(process.env.PORT, ()=>{
-    console.log('server is running on port', process.env.PORT);
-});
+//connect to database
+mongoose.connect(process.env.URI, {useNewUrlParser: true})
+.then(()=>{
+    app.listen(process.env.PORT, ()=>{
+        console.log('connected to db and server is running on port', process.env.PORT);
+    });
+})
+.catch((error)=>{
+    console.log(error);
+})
