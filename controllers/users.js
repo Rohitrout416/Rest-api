@@ -1,4 +1,6 @@
 import { v4 as uuidV4 } from 'uuid';
+import userDetails from "../models/userModel.js"
+
 
 let users = [
     {
@@ -20,8 +22,16 @@ let users = [
     }
 ]
 
-export const display_user = (req, res)=>{
+//get all users
+/*export const display_user = (req, res)=>{
     res.json(users);
+}*/
+
+//get all users with db
+export const display_user = async(req, res)=>{
+    const users = await userDetails.find({}).sort({createdAt: -1});
+
+    res.status(200).json(users);
 }
 
 export const get_user = (req, res)=>{
@@ -32,15 +42,21 @@ export const get_user = (req, res)=>{
     res.json(user)
 }
 
-export const add_user = (req, res)=>{
-    const {name: name, age: age} = req.body;
+export const add_user = async(req, res)=>{
+    const {name: name, age: age, Aadhar: Aadhar} = req.body;
     users.push({
         name,
         age,
         id: uuidV4()
     })
 
-    res.json(users)
+    try {
+        const userdetails = await userDetails.create({name, age, Aadhar});
+        res.status(200).json(userdetails);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+    // res.json(users)
 }
 
 export const delete_user = (req, res)=>{
