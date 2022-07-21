@@ -61,11 +61,6 @@ export const get_user = async(req, res)=>{
 
 export const add_user = async(req, res)=>{
     const {name: name, age: age, Aadhar: Aadhar} = req.body;
-    users.push({
-        name,
-        age,
-        id: uuidV4()
-    })
     
     try {
         const userdetails = await userDetails.create({name, age, Aadhar});

@@ -3,14 +3,14 @@ import { display_user, get_user, add_user, delete_user, update_user } from "../c
 
 const router = Router();
 
-router.get('/users', display_user);
+router.get('/', display_user);
 
-router.get('/users/:id', get_user);
+router.get('/:id', get_user);
 
-router.post('/users', add_user);
+router.post('/', add_user);
 
-router.delete('/users/:id', delete_user);
+router.delete('/:id', delete_user);
 
-router.put('/users/:id', update_user);
+router.put('/:id', update_user);
 
 export default router;

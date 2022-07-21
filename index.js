@@ -10,15 +10,7 @@ const app = express();
 
 app.use(express.json())
 
-app.use('/api', Userrouter)
-
-app.get('/',(req, res)=>{
-    res.json({
-        "name":"Rohit",
-        "age": "21"
-    })
-}
-)
+app.use('/users', Userrouter)
 
 //connect to database
 mongoose.connect(process.env.URI, {useNewUrlParser: true})
